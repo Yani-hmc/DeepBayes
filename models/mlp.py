@@ -1,5 +1,6 @@
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 
 def init_weights(input_size, output_size, constant=1.0, seed=123): 

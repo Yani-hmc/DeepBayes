@@ -1,7 +1,13 @@
 from __future__ import print_function
 
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+
+
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
 import sys, os
 sys.path.extend(['alg/', 'models/', 'utils/'])
 from utils import load_data, save_params, load_params, init_variables

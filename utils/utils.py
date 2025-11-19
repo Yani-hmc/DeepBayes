@@ -4,7 +4,8 @@ import os
 import numpy as np
 import time
 import pickle
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def load_data(data_name, path, labels = None, conv = False, seed = 0):
     if data_name == 'mnist':
@@ -25,7 +26,8 @@ def load_data(data_name, path, labels = None, conv = False, seed = 0):
     return data_train, data_test, labels_train, labels_test
 
 def init_variables(sess, old_var_list = set([])):
-    all_var_list = set(tf.all_variables())
+    all_var_list = set(tf.compat.v1.global_variables())
+
     init = tf.initialize_variables(var_list = all_var_list - old_var_list)
     sess.run(init)
     return all_var_list

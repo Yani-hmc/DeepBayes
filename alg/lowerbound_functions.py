@@ -1,5 +1,6 @@
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def sample_gaussian(mu, log_sig, K):
     mu = tf.tile(mu, [K, 1])
