@@ -1,7 +1,9 @@
 from __future__ import print_function
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 import sys, os
 sys.path.extend(['alg/', 'models/', 'utils/'])
 from utils import load_data, save_params, load_params, init_variables
@@ -58,10 +60,17 @@ def main(data_name, vae_type, dimZ, dimH, n_iter, batch_size, K, checkpoint, dat
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     sess = tf.Session(config=config)
+    #path_name = data_name + '_conv_vae_%s/' % (vae_type + '_' + str(dimZ))
+    #if not os.path.isdir('save/'+path_name):
+        #os.mkdir('save/'+path_name)
+        #print('create path save/' + path_name)
     path_name = data_name + '_conv_vae_%s/' % (vae_type + '_' + str(dimZ))
-    if not os.path.isdir('save/'+path_name):
-        os.mkdir('save/'+path_name)
-        print('create path save/' + path_name)
+    full_path = 'save/' + path_name
+
+    if not os.path.isdir(full_path):
+        # Use os.makedirs() to recursively create the 'save' directory AND the sub-directory
+        os.makedirs(full_path, exist_ok=True) 
+        print('create path ' + full_path)
     filename = 'save/' + path_name + 'checkpoint'
     if checkpoint < 0:
         print('training from scratch')
